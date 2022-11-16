@@ -7,9 +7,12 @@ import {
     OneToOne,
     JoinColumn
 } from "typeorm";
+import jwt from 'jsonwebtoken';
 
 import Account from './Account';
 import { encrypt } from '../utils/crypt';
+
+const secret = process.env.JWT_SECRET;
 
 @Entity("User")
 export default class User extends BaseEntity {
@@ -29,6 +32,10 @@ export default class User extends BaseEntity {
     @BeforeUpdate()
     private async hashPassword(): Promise<void> {
         this.password = await encrypt(this.password);
+    }
+
+    public generateToken() {
+        return jwt.sign({ username: this.username }, secret, { expiresIn: '24h' });
     }
 }
 
