@@ -125,4 +125,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-backend/package-lock.json
+
+# NPM package-lock
+package-lock.json
+
+# Postgresql
+database/db/
