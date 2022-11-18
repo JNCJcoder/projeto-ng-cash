@@ -1,9 +1,11 @@
 import bcrypt from "bcrypt";
 
-const salt = process.env.SALT;
+const PEPPER = process.env.PEPPER;
 
 async function encrypt(password: string) {
-    return await bcrypt.hash(password, salt)
+    const salt = await bcrypt.genSalt(10) + PEPPER;
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
 }
 
 async function decrypt(password: string, hash: string) {
