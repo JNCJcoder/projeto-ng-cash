@@ -9,19 +9,18 @@ import {
 import Currency from "currency.js";
 
 const currencyTransformer: ValueTransformer = {
-    from: (value: string) => Currency(value),
-    to: (value: Currency) => value.toString(),
+    from: (value: string) => Currency(value).toString(),
+    to: (value: string) => Currency(value).toString(),
 };
 
 @Entity("Account")
 export default class Account extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
-    public readonly id: string;
+    public readonly id!: string;
 
-    @Column()
-    public username: string;
-
-    @Column({ transformer: currencyTransformer })
-    public balance: Currency;
+    @Column({
+        transformer: currencyTransformer
+    })
+    public balance?: string;
 }
 
