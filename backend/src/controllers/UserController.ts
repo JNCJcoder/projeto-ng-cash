@@ -18,7 +18,7 @@ userController.post('/register', async (req: Request, res: Response, next: NextF
 userController.post('/login', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = await userService.login(req.body);
-        req.headers['authorization'] = token;
+        req.headers['authorization'] = "Bearer " + token;
         res.status(StatusCodes.OK).send({ token });
     } catch (error) {
         next(error);

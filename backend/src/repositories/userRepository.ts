@@ -8,6 +8,17 @@ interface bodyInterface {
 }
 
 class UserRepository {
+    async getUserAndAccount(username: string) {
+        const user = await User.find({ where: { username: username }, relations: { accountId: true }, take: 1 });
+
+        return user;
+    }
+
+    async getUser(username: string) {
+        const user = await User.findOneBy({ username: username });
+
+        return user;
+    }
     async register(body: bodyInterface) {
         const userFound = await User.findOneBy({ username: body.username });
         if (userFound) {
