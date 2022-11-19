@@ -9,28 +9,28 @@ import {
 } from "typeorm";
 import Currency from "currency.js";
 
-import User from './User';
+import Account from './Account';
 
 const currencyTransformer: ValueTransformer = {
-    from: (value: string) => Currency(value),
-    to: (value: Currency) => value.toString(),
+    from: (value: string) => Currency(value).toString(),
+    to: (value: string) => Currency(value).toString(),
 };
 
 @Entity("Transaction")
 export default class Transaction extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
-    public readonly id: string;
+    public readonly id!: string;
 
-    @ManyToOne(() => User)
-    public debitedAccountId: User;
+    @ManyToOne(() => Account)
+    public debitedAccountId!: Account;
 
-    @ManyToOne(() => User)
-    public creditedAccountId: User;
+    @ManyToOne(() => Account)
+    public creditedAccountId!: Account;
 
     @Column({ transformer: currencyTransformer })
-    public value: number;
+    public value!: string;
 
     @CreateDateColumn()
-    public readonly createdAt: Date;
+    public readonly createdAt!: Date;
 }
 
