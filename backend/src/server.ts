@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import express from 'express';
+import cors from 'cors';
 
 import myDataSource from "./app-data-source";
 import errorHandler from './middlewares/errorHandler';
@@ -20,6 +21,7 @@ myDataSource.initialize()
 const app = express();
 
 // Aplicação
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 // Rotas
