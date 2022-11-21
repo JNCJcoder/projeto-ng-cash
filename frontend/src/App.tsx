@@ -3,6 +3,6 @@ import Router from "./Router";
 
 import './global.css';
 
-const App = () => <Router />;
+const App: React.FC = () => <Router />;
 
 export default App;

@@ -8,7 +8,7 @@ import "./conta.css";
 import "./table.css";
 import "./form.css";
 
-function Conta() {
+const Conta: React.FC = () => {
   const [balance, setBalance] = useState('');
   const [creditedUsername, setCreditedUsername] = useState('');
   const [value, setValue] = useState('');
@@ -32,9 +32,6 @@ function Conta() {
       setBalance(response.data.balance);
       setUser(response.data.username);
       handleTransactionList();
-    })
-    .catch(error => {
-
     });
   }, [token]);
 

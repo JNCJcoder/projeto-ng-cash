@@ -3,7 +3,7 @@ import { useTable, useSortBy } from 'react-table';
 
 import "./table.css";
 
-const Table: any = ({ data }: any) =>
+const Table: React.FC<{data: any}> = ({ data }) =>
 {
     const columns = useMemo(() => [
         {
