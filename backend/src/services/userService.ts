@@ -14,6 +14,10 @@ class UserService {
             throw new UserError("Usuario e senha são obrigatorios!");
         }
 
+        if (body.username.length < 3) {
+            throw new UserError("O usuario precisa ser composto por pelo menos 3 caracteres.");
+        }
+
         if (!passwordRegex.test(body.password)) {
             throw new UserError("A senha precisa ter pelo menos 8 caracteres, um número e uma letra maiúscula.");
         }
@@ -32,6 +36,17 @@ class UserService {
     async login(body: bodyInterface) {
         return await userRepository.login(this.parseBody(body));
     };
+
+    async getUserInfo(username: string) {
+        const info = (await userRepository.getUserAndAccount(username))[0];
+
+        const data = {
+            username: info.username,
+            balance: info.accountId.balance
+        }
+
+        return data;
+    }
 };
 
 export default new UserService;
