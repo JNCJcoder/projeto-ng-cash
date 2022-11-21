@@ -12,4 +12,4 @@ RUN npm install --silent
 
 RUN npm run build
 
-CMD [ "npx", "serve", "build" ]
+CMD npx serve build --cors
