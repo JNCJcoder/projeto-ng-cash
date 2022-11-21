@@ -17,18 +17,11 @@ class TransactionRepository {
 
     async list(account: Account) {
         try {
-            const debitedList = await Transaction.find({ where: { debitedAccountId: account[0] }, relations: { debitedAccountId: true, creditedAccountId: true, } });
-            const creditedList = await Transaction.find({ where: { creditedAccountId: account[0] }, relations: { debitedAccountId: true, creditedAccountId: true, } });
-            const list = [...debitedList, ...creditedList]
+            const debitedList = await Transaction.find({ where: { debitedAccountId: { id: account.id } }, relations: { debitedAccountId: true, creditedAccountId: true, } });
+            const creditedList = await Transaction.find({ where: { creditedAccountId: { id: account.id } }, relations: { debitedAccountId: true, creditedAccountId: true, } });
+            const list = [...debitedList, ...creditedList];
 
-            const listModified = list.map(transaction => {
-                delete transaction.creditedAccountId.balance;
-                delete transaction.debitedAccountId.balance;
-
-                return transaction;
-            });
-
-            return listModified;
+            return list;
         } catch (error) {
             throw new DatabaseError('Erro ao tentar ler a lista de transaçoes: ', error);
         }

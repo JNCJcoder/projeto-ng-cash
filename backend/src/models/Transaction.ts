@@ -21,10 +21,10 @@ export default class Transaction extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
-    @ManyToOne(() => Account)
+    @ManyToOne(() => Account, { eager: true })
     public debitedAccountId!: Account;
 
-    @ManyToOne(() => Account)
+    @ManyToOne(() => Account, { eager: true })
     public creditedAccountId!: Account;
 
     @Column({ transformer: currencyTransformer })

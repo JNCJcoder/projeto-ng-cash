@@ -9,6 +9,7 @@ interface bodyInterface {
     debitedUsername: string;
     creditedUsername: string;
     value: string;
+    date: string
 }
 
 class TransactionService {
@@ -19,8 +20,14 @@ class TransactionService {
             throw new UnauthorizedError("Você só pode enviar dinheiro da sua conta.")
         }
 
-        if (username == creditedUsername) {
+        if (debitedUsername == creditedUsername) {
             throw new UnauthorizedError("Você não pode mandar dinheiro para si mesmo.");
+        }
+
+        console.log(creditedUsername);
+        const creditedUserFound = await userRepository.getUserByUsername(creditedUsername);
+        if (creditedUsername != creditedUserFound?.username) {
+            throw new UnauthorizedError("O Usuario creditado não existe.")
         }
 
         const creditedUser = (await userRepository.getUserAndAccount(creditedUsername))[0];
@@ -28,6 +35,10 @@ class TransactionService {
 
         if (Currency(debitedUser.accountId.balance!).intValue < Currency(value).intValue) {
             throw new UnauthorizedError("Você não pode mandar mais dinheiro do que possui.");
+        }
+
+        if (Currency(debitedUser.accountId.balance!).intValue === 0) {
+            throw new UnauthorizedError("Você não possui dinheiro disponivel.")
         }
 
         debitedUser.accountId.balance = Currency(debitedUser.accountId.balance!).subtract(Currency(value)).toString();
@@ -44,7 +55,21 @@ class TransactionService {
 
         const transactionList = await transactionRepository.list(userAccount);
 
-        return transactionList;
+        const newList: Array<bodyInterface> = [];
+
+        for (let transaction of transactionList) {
+            const debitedData = await userRepository.getUserByAccountID(transaction.debitedAccountId);
+            const creditedData = await userRepository.getUserByAccountID(transaction.creditedAccountId);
+
+            newList.push({
+                debitedUsername: debitedData?.username!,
+                creditedUsername: creditedData?.username!,
+                value: "R$ " + transaction.value,
+                date: `${transaction.createdAt.toDateString()} - ${transaction.createdAt.toLocaleTimeString()}`
+            });
+        }
+
+        return newList;
     }
 };
 
