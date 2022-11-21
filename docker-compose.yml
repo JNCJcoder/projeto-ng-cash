@@ -1,0 +1,41 @@
+version: "3"
+services:
+  database:
+    container_name: pg
+    image: postgres
+    volumes:
+      - ./database/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_BACKEND_HOST=backend
+    depends_on:
+      - database
+  backend:
+    container_name: backend
+    build: ./backend
+    ports:
+      - "3333:3333"
+    environment:
+      - NODE_ENV=development
+      - PORT=3333
+      - POSTGRES_HOST=pg
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - JWT_SECRET=5d2f1c4608232e07d3aa3d998e51ea35
+      - PEPPER=A7hPn8
+    depends_on:
+      - database
+      - frontend
+    command: npm run start
