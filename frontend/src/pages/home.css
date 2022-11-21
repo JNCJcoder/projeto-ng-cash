@@ -1,0 +1,36 @@
+.main section
+{
+    width: 65%;
+    height: 100vh;
+    background-image: url('../assets/banner.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.main aside
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 35%;
+    height: 100vh;
+    padding: 0 16px;
+}
+
+.main aside .logo
+{
+    background-image: url('../assets/Logo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.main aside form
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.image
+{
+    align-self: center;
+}
