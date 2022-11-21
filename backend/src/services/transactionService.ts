@@ -24,7 +24,6 @@ class TransactionService {
             throw new UnauthorizedError("Você não pode mandar dinheiro para si mesmo.");
         }
 
-        console.log(creditedUsername);
         const creditedUserFound = await userRepository.getUserByUsername(creditedUsername);
         if (creditedUsername != creditedUserFound?.username) {
             throw new UnauthorizedError("O Usuario creditado não existe.")
