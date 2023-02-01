@@ -1,5 +1,7 @@
 ## Projeto NG.CASH - TECH CHALLENGE
 
+> Esta é a branch Original, ou seja, os arquivos são exatamente os mesmos que enviei para o processo da NG.CASH.
+
 Aplicação web fullstack totalmente dockerizada similar a de um banco, porem, permitindo apenas transações internas.
 
 ## 👨‍🏫 Testando:
