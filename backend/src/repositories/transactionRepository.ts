@@ -17,9 +17,13 @@ class TransactionRepository {
 
     async list(account: Account) {
         try {
-            const debitedList = await Transaction.find({ where: { debitedAccountId: { id: account.id } }, relations: { debitedAccountId: true, creditedAccountId: true, } });
-            const creditedList = await Transaction.find({ where: { creditedAccountId: { id: account.id } }, relations: { debitedAccountId: true, creditedAccountId: true, } });
-            const list = [...debitedList, ...creditedList];
+            const list = await Transaction.find({
+                where: [
+                    { creditedAccountId: { id: account.id } },
+                    { debitedAccountId: { id: account.id } },
+                ],
+                relations: { creditedAccountId: true, debitedAccountId: true },
+            });
 
             return list;
         } catch (error) {
