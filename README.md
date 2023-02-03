@@ -1,5 +1,7 @@
 ## Projeto NG.CASH - TECH CHALLENGE
 
+> 🚩 Esta versão é modificada, caso queira ver a original [clique aqui](https://github.com/JNCJcoder/projeto-ng-cash/tree/original).
+
 Aplicação web fullstack totalmente dockerizada similar a de um banco, porem, permitindo apenas transações internas.
 
 ## 👨‍🏫 Testando:
