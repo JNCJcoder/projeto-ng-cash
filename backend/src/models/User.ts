@@ -30,7 +30,6 @@ export default class User extends BaseEntity {
     @JoinColumn()
     public accountId!: Account;
 
-    @BeforeUpdate()
     @BeforeInsert()
     private async hashPassword(): Promise<void> {
         this.password = await encrypt(this.password);
