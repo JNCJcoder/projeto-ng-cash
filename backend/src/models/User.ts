@@ -26,7 +26,7 @@ export default class User extends BaseEntity {
     @Column()
     public password!: string;
 
-    @OneToOne(() => Account, { cascade: true })
+    @OneToOne(() => Account, (account) => account.id)
     @JoinColumn()
     public accountId!: Account;
 

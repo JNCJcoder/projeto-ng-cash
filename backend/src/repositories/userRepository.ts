@@ -35,7 +35,7 @@ class UserRepository {
             const user = new User();
             user.username = body.username;
             user.password = body.password;
-            user.accountId = account;
+            user.accountId = await account.save();
             return await user.save();
         } catch (error) {
             throw new DatabaseError('Erro na criação do usuario');
