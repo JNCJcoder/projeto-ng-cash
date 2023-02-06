@@ -4,6 +4,7 @@ import {
     BaseEntity,
     CreateDateColumn,
     Column,
+    JoinColumn,
     ManyToOne,
     ValueTransformer
 } from "typeorm";
@@ -21,10 +22,12 @@ export default class Transaction extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     public readonly id!: string;
 
-    @ManyToOne(() => Account, { eager: true })
+    @ManyToOne(() => Account, (account) => account.id)
+    @JoinColumn()
     public debitedAccountId!: Account;
 
-    @ManyToOne(() => Account, { eager: true })
+    @ManyToOne(() => Account, (account) => account.id)
+    @JoinColumn()
     public creditedAccountId!: Account;
 
     @Column({ transformer: currencyTransformer })
