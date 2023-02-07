@@ -15,8 +15,10 @@ class UserRepository {
     }
 
     async getUserByUsername(username: string) {
-        const user = await User.findOneBy({ username: username });
-        return user;
+        const user = await User.find({
+            where: { username }
+        });
+        return user[0];
     }
 
     async getUserByAccountID(account: Account) {
