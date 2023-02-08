@@ -11,7 +11,7 @@ class UserRepository {
     async getUserAndAccount(username: string) {
         const user = await User.find({ where: { username: username }, relations: { accountId: true } });
 
-        return user;
+        return user[0];
     }
 
     async getUserByUsername(username: string) {

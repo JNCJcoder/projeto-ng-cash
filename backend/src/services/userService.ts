@@ -38,7 +38,7 @@ class UserService {
     };
 
     async getUserInfo(username: string) {
-        const info = (await userRepository.getUserAndAccount(username))[0];
+        const info = (await userRepository.getUserAndAccount(username));
 
         const data = {
             username: info.username,

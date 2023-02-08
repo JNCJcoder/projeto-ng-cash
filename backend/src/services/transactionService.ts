@@ -29,8 +29,8 @@ class TransactionService {
             throw new UnauthorizedError("O Usuario creditado não existe.")
         }
 
-        const creditedUser = (await userRepository.getUserAndAccount(creditedUsername))[0];
-        const debitedUser = (await userRepository.getUserAndAccount(debitedUsername))[0];
+        const creditedUser = (await userRepository.getUserAndAccount(creditedUsername));
+        const debitedUser = (await userRepository.getUserAndAccount(debitedUsername));
 
         if (Currency(debitedUser.accountId.balance!).intValue < Currency(value).intValue) {
             throw new UnauthorizedError("Você não pode mandar mais dinheiro do que possui.");
@@ -50,7 +50,7 @@ class TransactionService {
     };
 
     async list(username: string) {
-        const userAccount = (await userRepository.getUserAndAccount(username))[0].accountId;
+        const userAccount = (await userRepository.getUserAndAccount(username)).accountId;
 
         const transactionList = await transactionRepository.list(userAccount);
 
