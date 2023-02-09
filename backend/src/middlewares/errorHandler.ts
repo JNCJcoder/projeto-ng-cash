@@ -8,7 +8,7 @@ import UserError from "../models/errors/userError";
 import UnauthorizedError from "../models/errors/unauthorizedError";
 
 function errorHandler(error: any, _req: Request, res: Response, _next: NextFunction) {
-    let status;
+    let status: number;
     if (error instanceof ForbiddenError) {
         status = StatusCodes.FORBIDDEN;
     }
